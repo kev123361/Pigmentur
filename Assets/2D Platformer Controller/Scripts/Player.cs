@@ -17,6 +17,11 @@ public class Player : MonoBehaviour
     public bool canDoubleJump;
     private bool isDoubleJumping = false;
 
+    private bool isGliding = false;
+
+    public enum PlayerColor { White, Red, Blue, Yellow};
+    public PlayerColor currentColor = PlayerColor.White;
+
     public float wallSlideSpeedMax = 3f;
     public float wallStickTime = .25f;
     private float timeToWallUnstick;
@@ -33,8 +38,11 @@ public class Player : MonoBehaviour
     private bool wallSliding;
     private int wallDirX;
 
+    private Rigidbody2D rb;
+
     private void Start()
     {
+        rb = GetComponent<Rigidbody2D>();
         controller = GetComponent<Controller2D>();
         gravity = -(2 * maxJumpHeight) / Mathf.Pow(timeToJumpApex, 2);
         maxJumpVelocity = Mathf.Abs(gravity) * timeToJumpApex;
@@ -52,11 +60,32 @@ public class Player : MonoBehaviour
         {
             velocity.y = 0f;
         }
+        if (isGliding && velocity.y <= 0f)
+        {
+            gravity = -(2 * maxJumpHeight) / Mathf.Pow(timeToJumpApex, 2) / 10f;
+        }
     }
 
     public void SetDirectionalInput(Vector2 input)
     {
         directionalInput = input;
+    }
+
+    public void Dash()
+    {
+        //rb.transform.position += transform.right * 2;
+        if (currentColor == PlayerColor.Yellow)
+        {
+            rb.AddForce(transform.right * 10f, ForceMode2D.Impulse);
+        }
+    }
+
+    public void DashLeft()
+    {
+        if (currentColor == PlayerColor.Yellow)
+        {
+            rb.AddForce(-transform.right * 10f, ForceMode2D.Impulse);
+        }
     }
 
     public void OnJumpInputDown()
@@ -90,10 +119,19 @@ public class Player : MonoBehaviour
             velocity.y = maxJumpVelocity;
             isDoubleJumping = true;
         }
+        if (currentColor == PlayerColor.Red)
+        {
+            isGliding = true;
+        }
     }
 
     public void OnJumpInputUp()
     {
+        if (currentColor == PlayerColor.Red)
+        {
+            gravity = -(2 * maxJumpHeight) / Mathf.Pow(timeToJumpApex, 2);
+            isGliding = false;
+        }
         if (velocity.y > minJumpVelocity)
         {
             velocity.y = minJumpVelocity;
@@ -138,5 +176,19 @@ public class Player : MonoBehaviour
         float targetVelocityX = directionalInput.x * moveSpeed;
         velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below ? accelerationTimeGrounded : accelerationTimeAirborne));
         velocity.y += gravity * Time.deltaTime;
+        if (isGliding && velocity.y < -2f)
+        {
+            velocity.y = -2f;
+        }
+    }
+
+    public void TurnDoubleJumpOn()
+    {
+        canDoubleJump = true;
+    }
+
+    public void TurnDoubleJumpOff()
+    {
+        canDoubleJump = false;
     }
 }
