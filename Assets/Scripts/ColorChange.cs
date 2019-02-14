@@ -9,6 +9,7 @@ public class ColorChange : MonoBehaviour
     public Material blue;
     public Material red;
     public Material yellow;
+    public Material green;
     // Start is called before the first frame update
     void Start()
     {
@@ -34,5 +35,10 @@ public class ColorChange : MonoBehaviour
     public void ChangeYellow()
     {
         playerRenderer.material = yellow;
+    }
+
+    public void ChangeGreen()
+    {
+        playerRenderer.material = green;
     }
 }

@@ -9,6 +9,7 @@ public class PlayerInput : MonoBehaviour
     public bool inBlue;
     public bool inRed;
     public bool inYellow;
+    public bool inGreen;
 
     public float dCooler = .5f;
     private float dCounter;
@@ -98,6 +99,11 @@ public class PlayerInput : MonoBehaviour
                 cc.ChangeYellow();
                 player.TurnDoubleJumpOff();
                 player.currentColor = Player.PlayerColor.Yellow;
+            } else if (inGreen)
+            {
+                cc.ChangeGreen();
+                player.TurnDoubleJumpOff();
+                player.currentColor = Player.PlayerColor.Green;
             }
         }
     }
@@ -116,6 +122,10 @@ public class PlayerInput : MonoBehaviour
         {
             inYellow = true;
         }
+        else if (other.CompareTag("Green Pickup"))
+        {
+            inGreen = true;
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -130,6 +140,10 @@ public class PlayerInput : MonoBehaviour
         else if (collision.CompareTag("Yellow Pickup"))
         {
             inYellow = false;
+        }
+        else if (collision.CompareTag("Green Pickup"))
+        {
+            inGreen = false;
         }
     }
 }

@@ -19,7 +19,7 @@ public class Player : MonoBehaviour
 
     private bool isGliding = false;
 
-    public enum PlayerColor { White, Red, Blue, Yellow};
+    public enum PlayerColor { White, Red, Blue, Yellow, Green};
     public PlayerColor currentColor = PlayerColor.White;
 
     public float wallSlideSpeedMax = 3f;
@@ -35,7 +35,7 @@ public class Player : MonoBehaviour
     private Controller2D controller;
 
     private Vector2 directionalInput;
-    private bool wallSliding;
+    public bool wallSliding;
     private int wallDirX;
 
     private Rigidbody2D rb;
@@ -94,18 +94,27 @@ public class Player : MonoBehaviour
         {
             if (wallDirX == directionalInput.x)
             {
-                velocity.x = -wallDirX * wallJumpClimb.x;
-                velocity.y = wallJumpClimb.y;
+                if (currentColor == PlayerColor.Green)
+                {
+                    velocity.x = -wallDirX * wallJumpClimb.x;
+                    velocity.y = wallJumpClimb.y;
+                }
+                else
+                {
+                    
+                }
             }
             else if (directionalInput.x == 0)
             {
                 velocity.x = -wallDirX * wallJumpOff.x;
                 velocity.y = wallJumpOff.y;
+                wallSliding = false;
             }
             else
             {
                 velocity.x = -wallDirX * wallLeap.x;
                 velocity.y = wallLeap.y;
+                wallSliding = false;
             }
             isDoubleJumping = false;
         }
@@ -176,6 +185,11 @@ public class Player : MonoBehaviour
         float targetVelocityX = directionalInput.x * moveSpeed;
         velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below ? accelerationTimeGrounded : accelerationTimeAirborne));
         velocity.y += gravity * Time.deltaTime;
+
+        if (currentColor == PlayerColor.Green && wallSliding)
+        {
+            velocity.y = -0.00001f;
+        }
         if (isGliding && velocity.y < -2f)
         {
             velocity.y = -2f;
