@@ -10,6 +10,8 @@ public class PlayerInput : MonoBehaviour
     public bool inRed;
     public bool inYellow;
     public bool inGreen;
+    public bool nearStone;
+    public GameObject currStone;
 
     public float dCooler = .5f;
     private float dCounter;
@@ -88,22 +90,28 @@ public class PlayerInput : MonoBehaviour
             {
                 cc.ChangeBlue();
                 player.TurnDoubleJumpOn();
-                player.currentColor = Player.PlayerColor.Blue;
+                player.currentColor = Player.Color.Blue;
             } else if (inRed)
             {
                 cc.ChangeRed();
                 player.TurnDoubleJumpOff();
-                player.currentColor = Player.PlayerColor.Red;
+                player.currentColor = Player.Color.Red;
             } else if (inYellow)
             {
                 cc.ChangeYellow();
                 player.TurnDoubleJumpOff();
-                player.currentColor = Player.PlayerColor.Yellow;
+                player.currentColor = Player.Color.Yellow;
             } else if (inGreen)
             {
                 cc.ChangeGreen();
                 player.TurnDoubleJumpOff();
-                player.currentColor = Player.PlayerColor.Green;
+                player.currentColor = Player.Color.Green;
+            } else if (nearStone)
+            {
+                if (currStone.GetComponent<Stone>().color == player.currentColor)
+                {
+                    currStone.GetComponent<Stone>().Fill();
+                }
             }
         }
     }
@@ -125,6 +133,10 @@ public class PlayerInput : MonoBehaviour
         else if (other.CompareTag("Green Pickup"))
         {
             inGreen = true;
+        } else if (other.CompareTag("Stone"))
+        {
+            nearStone = true;
+            currStone = other.gameObject;
         }
     }
 
@@ -144,6 +156,10 @@ public class PlayerInput : MonoBehaviour
         else if (collision.CompareTag("Green Pickup"))
         {
             inGreen = false;
+        }
+        else if (collision.CompareTag("Stone"))
+        {
+            nearStone = false;
         }
     }
 }

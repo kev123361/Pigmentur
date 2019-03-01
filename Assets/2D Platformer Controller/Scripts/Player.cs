@@ -19,8 +19,8 @@ public class Player : MonoBehaviour
 
     private bool isGliding = false;
 
-    public enum PlayerColor { White, Red, Blue, Yellow, Green};
-    public PlayerColor currentColor = PlayerColor.White;
+    public enum Color { White, Red, Blue, Yellow, Green};
+    public Color currentColor = Color.White;
 
     public float wallSlideSpeedMax = 3f;
     public float wallStickTime = .25f;
@@ -74,7 +74,7 @@ public class Player : MonoBehaviour
     public void Dash()
     {
         //rb.transform.position += transform.right * 2;
-        if (currentColor == PlayerColor.Yellow)
+        if (currentColor == Color.Yellow)
         {
             rb.AddForce(transform.right * 10f, ForceMode2D.Impulse);
         }
@@ -82,7 +82,7 @@ public class Player : MonoBehaviour
 
     public void DashLeft()
     {
-        if (currentColor == PlayerColor.Yellow)
+        if (currentColor == Color.Yellow)
         {
             rb.AddForce(-transform.right * 10f, ForceMode2D.Impulse);
         }
@@ -94,7 +94,7 @@ public class Player : MonoBehaviour
         {
             if (wallDirX == directionalInput.x)
             {
-                if (currentColor == PlayerColor.Green)
+                if (currentColor == Color.Green)
                 {
                     velocity.x = -wallDirX * wallJumpClimb.x;
                     velocity.y = wallJumpClimb.y;
@@ -128,7 +128,7 @@ public class Player : MonoBehaviour
             velocity.y = maxJumpVelocity;
             isDoubleJumping = true;
         }
-        if (currentColor == PlayerColor.Red)
+        if (currentColor == Color.Red)
         {
             isGliding = true;
         }
@@ -136,7 +136,7 @@ public class Player : MonoBehaviour
 
     public void OnJumpInputUp()
     {
-        if (currentColor == PlayerColor.Red)
+        if (currentColor == Color.Red)
         {
             gravity = -(2 * maxJumpHeight) / Mathf.Pow(timeToJumpApex, 2);
             isGliding = false;
@@ -186,7 +186,7 @@ public class Player : MonoBehaviour
         velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below ? accelerationTimeGrounded : accelerationTimeAirborne));
         velocity.y += gravity * Time.deltaTime;
 
-        if (currentColor == PlayerColor.Green && wallSliding)
+        if (currentColor == Color.Green && wallSliding)
         {
             velocity.y = -0.00001f;
         }
