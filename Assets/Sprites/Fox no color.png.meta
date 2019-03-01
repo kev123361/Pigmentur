@@ -1,0 +1,257 @@
+fileFormatVersion: 2
+guid: 32da99782f4804049abb8f3d998259c2
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: Fox no color_RAnt
+    21300002: Fox no color_LAnt
+    21300004: Fox no color_Head
+    21300006: Fox no color_Tail
+    21300008: Fox no color_Body
+    21300010: Fox no color_BackL
+    21300012: Fox no color_FrontL
+  externalObjects: {}
+  serializedVersion: 9
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - serializedVersion: 2
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Fox no color_RAnt
+      rect:
+        serializedVersion: 2
+        x: 268.3248
+        y: 214.99359
+        width: 36.68164
+        height: 61.00641
+      alignment: 9
+      pivot: {x: 0.49548498, y: 0.51644427}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0d534e4f6fcde004ba53e6bb2ca54429
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fox no color_LAnt
+      rect:
+        serializedVersion: 2
+        x: 298
+        y: 211
+        width: 33
+        height: 65
+      alignment: 9
+      pivot: {x: 0.6060606, y: 0.5538462}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 83bc1b0ad51ecd84f8a8ab8072bef74e
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fox no color_Head
+      rect:
+        serializedVersion: 2
+        x: 191.90811
+        y: 117.697266
+        width: 85.789154
+        height: 94.69806
+      alignment: 9
+      pivot: {x: 0.49647173, y: 0.49951112}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a417724ff705ced40b7665e3b177e4a9
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fox no color_Tail
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 65
+        width: 126
+        height: 55
+      alignment: 9
+      pivot: {x: 0.47222224, y: 0.49999997}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6e9f72f77df7f68448a178d89b7a1b36
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fox no color_Body
+      rect:
+        serializedVersion: 2
+        x: 139.81187
+        y: 49.541245
+        width: 89.40376
+        height: 74.917534
+      alignment: 9
+      pivot: {x: 0.49984613, y: 0.49999985}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 86084167e7917dd44a3ccc1d53ece622
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fox no color_BackL
+      rect:
+        serializedVersion: 2
+        x: 154
+        y: 0
+        width: 31
+        height: 43
+      alignment: 9
+      pivot: {x: 0.5, y: 0.47674417}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ff66df5e803a5f74c94d9ca84c46bd19
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fox no color_FrontL
+      rect:
+        serializedVersion: 2
+        x: 191
+        y: 0
+        width: 30
+        height: 47
+      alignment: 9
+      pivot: {x: 0.5, y: 0.4361702}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 64e71846bc345374993ce7dc9d409712
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 0b34b4eaba0a9bc4ba4a11c9daaed7d6
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 636867603472701064
+  assetBundleName: 
+  assetBundleVariant: 
