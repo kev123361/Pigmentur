@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 
 [RequireComponent(typeof(Controller2D))]
 public class Player : MonoBehaviour
@@ -19,6 +21,8 @@ public class Player : MonoBehaviour
 
     private bool isGliding = false;
 
+    private bool isDashing = false;
+
     public enum Color { White, Red, Blue, Yellow, Green};
     public Color currentColor = Color.White;
 
@@ -29,7 +33,7 @@ public class Player : MonoBehaviour
     private float gravity;
     private float maxJumpVelocity;
     private float minJumpVelocity;
-    private Vector3 velocity;
+    public Vector3 velocity;
     private float velocityXSmoothing;
 
     private Controller2D controller;
@@ -40,6 +44,9 @@ public class Player : MonoBehaviour
 
     private Rigidbody2D rb;
 
+    private Animator anim;
+    private bool goingleft;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -47,6 +54,8 @@ public class Player : MonoBehaviour
         gravity = -(2 * maxJumpHeight) / Mathf.Pow(timeToJumpApex, 2);
         maxJumpVelocity = Mathf.Abs(gravity) * timeToJumpApex;
         minJumpVelocity = Mathf.Sqrt(2 * Mathf.Abs(gravity) * minJumpHeight);
+        anim = GetComponent<Animator>();
+        
     }
 
     private void Update()
@@ -54,7 +63,9 @@ public class Player : MonoBehaviour
         CalculateVelocity();
         HandleWallSliding();
 
+        
         controller.Move(velocity * Time.deltaTime, directionalInput);
+        
 
         if (controller.collisions.above || controller.collisions.below)
         {
@@ -64,6 +75,10 @@ public class Player : MonoBehaviour
         {
             gravity = -(2 * maxJumpHeight) / Mathf.Pow(timeToJumpApex, 2) / 10f;
         }
+
+        
+
+        
     }
 
     public void SetDirectionalInput(Vector2 input)
@@ -77,14 +92,20 @@ public class Player : MonoBehaviour
         if (currentColor == Color.Yellow)
         {
             rb.AddForce(transform.right * 10f, ForceMode2D.Impulse);
+            StartCoroutine(DashTimer());
         }
     }
 
     public void DashLeft()
     {
-        if (currentColor == Color.Yellow)
+        if (currentColor == Color.Yellow && !(transform.eulerAngles.y > 0))
         {
             rb.AddForce(-transform.right * 10f, ForceMode2D.Impulse);
+            StartCoroutine(DashTimer());
+        } else if (currentColor == Color.Yellow)
+        {
+            rb.AddForce(transform.right * 10f, ForceMode2D.Impulse);
+            StartCoroutine(DashTimer());
         }
     }
 
@@ -182,17 +203,50 @@ public class Player : MonoBehaviour
 
     private void CalculateVelocity()
     {
+
+        if (goingleft && transform.eulerAngles.y > 0)
+        {
+            directionalInput.x = -directionalInput.x;
+        }
         float targetVelocityX = directionalInput.x * moveSpeed;
         velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below ? accelerationTimeGrounded : accelerationTimeAirborne));
-        velocity.y += gravity * Time.deltaTime;
+        velocity.y += gravity * Time.deltaTime * .82f;
 
-        if (currentColor == Color.Green && wallSliding)
+        if (currentColor == Color.Green && wallSliding || isDashing)
         {
             velocity.y = -0.00001f;
         }
-        if (isGliding && velocity.y < -2f)
+        if (isGliding && velocity.y < -1f)
         {
-            velocity.y = -2f;
+            velocity.y = -1f;
+        }
+
+        if (Mathf.Abs(velocity.x) < .1f)
+        {
+            velocity.x = 0f;
+        }
+
+       
+        if (goingleft && transform.eulerAngles.y > 0)
+        {
+            velocity.x = -velocity.x;
+        }
+        anim.SetFloat("xvelocity", velocity.x);
+
+        if (velocity.x < 0f)
+        {
+            anim.SetBool("goingleft", true);
+            goingleft = true;
+        } else if (velocity.x > 0f)
+        {
+            anim.SetBool("goingleft", false);
+            goingleft = false;
+        }
+
+        Debug.Log(transform.eulerAngles.y);
+        if (goingleft && transform.eulerAngles.y > 0)
+        {
+            velocity.x = -velocity.x;
         }
     }
 
@@ -204,5 +258,16 @@ public class Player : MonoBehaviour
     public void TurnDoubleJumpOff()
     {
         canDoubleJump = false;
+    }
+
+    private IEnumerator DashTimer()
+    {
+        isDashing = true;
+
+        yield return new WaitForSeconds(.3f);
+
+        isDashing = false;
+        GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+
     }
 }

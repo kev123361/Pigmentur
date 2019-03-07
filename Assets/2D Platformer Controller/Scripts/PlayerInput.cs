@@ -6,6 +6,9 @@ public class PlayerInput : MonoBehaviour
     private Player player;
     private ColorChange cc;
 
+    public Fairy fairy;
+    private ColorChange fairycc;
+
     public bool inBlue;
     public bool inRed;
     public bool inYellow;
@@ -13,16 +16,17 @@ public class PlayerInput : MonoBehaviour
     public bool nearStone;
     public GameObject currStone;
 
-    public float dCooler = .5f;
+    private float dCooler = .5f;
     private float dCounter;
 
-    public float aCooler = .5f;
+    private float aCooler = .5f;
     private float aCounter;
 
     private void Start()
     {
         player = GetComponent<Player>();
         cc = GetComponent<ColorChange>();
+        fairycc = fairy.GetComponent<ColorChange>();
     }
 
     private void Update()
@@ -88,25 +92,28 @@ public class PlayerInput : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftShift)) {
             if (inBlue)
             {
-                cc.ChangeBlue();
+                cc.TurnOffMesh(player.currentColor);
+                cc.ChangeColor(Player.Color.Blue);
                 player.TurnDoubleJumpOn();
                 player.currentColor = Player.Color.Blue;
             } else if (inRed)
             {
-                cc.ChangeRed();
+                cc.ChangeColor(Player.Color.Red);
                 player.TurnDoubleJumpOff();
                 player.currentColor = Player.Color.Red;
             } else if (inYellow)
             {
-                cc.ChangeYellow();
+                cc.ChangeColor(Player.Color.Yellow);
                 player.TurnDoubleJumpOff();
                 player.currentColor = Player.Color.Yellow;
             } else if (inGreen)
             {
-                cc.ChangeGreen();
+                cc.ChangeColor(Player.Color.Green);
                 player.TurnDoubleJumpOff();
                 player.currentColor = Player.Color.Green;
-            } else if (nearStone)
+            }
+            //Handle Stone filling
+            else if (nearStone)
             {
                 if (currStone.GetComponent<Stone>().color == player.currentColor)
                 {
@@ -114,6 +121,16 @@ public class PlayerInput : MonoBehaviour
                 }
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            HandleColorSwap();
+        }
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            HandleFairyChange();
+        }
+        
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -160,6 +177,39 @@ public class PlayerInput : MonoBehaviour
         else if (collision.CompareTag("Stone"))
         {
             nearStone = false;
+        }
+    }
+
+    private void HandleColorSwap()
+    {
+        Player.Color playerColor = player.currentColor;
+        cc.ChangeColor(fairy.GetColor());
+        player.currentColor = fairy.GetColor();
+        fairycc.ChangeColor(playerColor);
+        fairy.SetColor(playerColor);
+    }
+
+    private void HandleFairyChange()
+    {
+        if (inBlue)
+        {
+            fairycc.ChangeColor(Player.Color.Blue);
+            fairy.SetColor(Player.Color.Blue);
+        }
+        else if (inRed)
+        {
+            fairycc.ChangeColor(Player.Color.Red);
+            fairy.SetColor(Player.Color.Red);
+        }
+        else if (inYellow)
+        {
+            fairycc.ChangeColor(Player.Color.Yellow);
+            fairy.SetColor(Player.Color.Yellow);
+        }
+        else if (inGreen)
+        {
+            fairycc.ChangeColor(Player.Color.Yellow);
+            fairy.SetColor(Player.Color.Yellow);
         }
     }
 }
