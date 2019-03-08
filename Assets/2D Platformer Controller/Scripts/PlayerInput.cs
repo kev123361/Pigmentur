@@ -208,8 +208,8 @@ public class PlayerInput : MonoBehaviour
         }
         else if (inGreen)
         {
-            fairycc.ChangeColor(Player.Color.Yellow);
-            fairy.SetColor(Player.Color.Yellow);
+            fairycc.ChangeColor(Player.Color.Green);
+            fairy.SetColor(Player.Color.Green);
         }
     }
 }
