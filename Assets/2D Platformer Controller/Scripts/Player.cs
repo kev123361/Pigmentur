@@ -75,9 +75,6 @@ public class Player : MonoBehaviour
         {
             gravity = -(2 * maxJumpHeight) / Mathf.Pow(timeToJumpApex, 2) / 10f;
         }
-
-        
-
         
     }
 
@@ -120,13 +117,13 @@ public class Player : MonoBehaviour
                     
                 }
             }
-            else if (directionalInput.x == 0)
+            else if (directionalInput.x == 0 && currentColor == Color.Green)
             {
                 velocity.x = -wallDirX * wallJumpOff.x;
                 velocity.y = wallJumpOff.y;
                 wallSliding = false;
             }
-            else
+            else if (currentColor == Color.Green)
             {
                 velocity.x = -wallDirX * wallLeap.x;
                 velocity.y = wallLeap.y;
