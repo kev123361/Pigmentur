@@ -98,16 +98,19 @@ public class PlayerInput : MonoBehaviour
                 player.currentColor = Player.Color.Blue;
             } else if (inRed)
             {
+                cc.TurnOffMesh(player.currentColor);
                 cc.ChangeColor(Player.Color.Red);
                 player.TurnDoubleJumpOff();
                 player.currentColor = Player.Color.Red;
             } else if (inYellow)
             {
+                cc.TurnOffMesh(player.currentColor);
                 cc.ChangeColor(Player.Color.Yellow);
                 player.TurnDoubleJumpOff();
                 player.currentColor = Player.Color.Yellow;
             } else if (inGreen)
             {
+                cc.TurnOffMesh(player.currentColor);
                 cc.ChangeColor(Player.Color.Green);
                 player.TurnDoubleJumpOff();
                 player.currentColor = Player.Color.Green;
