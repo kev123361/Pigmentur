@@ -45,7 +45,7 @@ public class Player : MonoBehaviour
     private Rigidbody2D rb;
 
     private Animator anim;
-    private bool goingleft;
+    
 
     private void Start()
     {
@@ -98,15 +98,10 @@ public class Player : MonoBehaviour
 
     public void DashLeft()
     {
-        if (currentColor == Color.Yellow && !(transform.eulerAngles.y > 0))
-        {
-            rb.AddForce(-transform.right * 10f, ForceMode2D.Impulse);
-            StartCoroutine(DashTimer());
-        } else if (currentColor == Color.Yellow)
-        {
-            rb.AddForce(transform.right * 10f, ForceMode2D.Impulse);
-            StartCoroutine(DashTimer());
-        }
+        
+         rb.AddForce(-transform.right * 10f, ForceMode2D.Impulse);
+         StartCoroutine(DashTimer());
+        
     }
 
     public void OnJumpInputDown()
@@ -204,10 +199,7 @@ public class Player : MonoBehaviour
     private void CalculateVelocity()
     {
 
-        if (goingleft && transform.eulerAngles.y > 0)
-        {
-            directionalInput.x = -directionalInput.x;
-        }
+        
         float targetVelocityX = directionalInput.x * moveSpeed;
         velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below ? accelerationTimeGrounded : accelerationTimeAirborne));
         velocity.y += gravity * Time.deltaTime * .82f;
@@ -227,27 +219,21 @@ public class Player : MonoBehaviour
         }
 
        
-        if (goingleft && transform.eulerAngles.y > 0)
-        {
-            velocity.x = -velocity.x;
-        }
+        
         anim.SetFloat("xvelocity", velocity.x);
 
         if (velocity.x < 0f)
         {
             anim.SetBool("goingleft", true);
-            goingleft = true;
+            
         } else if (velocity.x > 0f)
         {
             anim.SetBool("goingleft", false);
-            goingleft = false;
+            
         }
 
-        Debug.Log(transform.eulerAngles.y);
-        if (goingleft && transform.eulerAngles.y > 0)
-        {
-            velocity.x = -velocity.x;
-        }
+       
+        
     }
 
     public void TurnDoubleJumpOn()
