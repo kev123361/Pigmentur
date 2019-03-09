@@ -34,54 +34,59 @@ public class PlayerInput : MonoBehaviour
         Vector2 directionalInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         player.SetDirectionalInput(directionalInput);
 
-        if (Input.GetKeyDown(KeyCode.D))
+        //if (Input.GetKeyDown(KeyCode.D))
+        //{
+        //    if (dCooler > 0 && dCounter == 1)
+        //    {
+        //        player.Dash();
+        //        Debug.Log("Dashed");
+        //    }
+        //    else
+        //    {
+        //        dCooler = .5f;
+        //        dCounter += 1;
+        //    }
+        //}
+        //if (dCooler > 0)
+        //{
+        //    dCooler -= 1 * Time.deltaTime;
+        //} else
+        //{
+        //    dCounter = 0;
+        //}
+
+        //if (Input.GetKeyDown(KeyCode.A))
+        //{
+        //    if (aCooler > 0 && aCounter == 1)
+        //    {
+        //        player.DashLeft();
+        //        Debug.Log("Dashed Left");
+        //    }
+        //    else
+        //    {
+        //        aCooler = .5f;
+        //        aCounter += 1;
+        //    }
+        //}
+        //if (aCooler > 0)
+        //{
+        //    aCooler -= 1 * Time.deltaTime;
+        //}
+        //else
+        //{
+        //    aCounter = 0;
+        //}
+
+        if (Input.GetKeyDown(KeyCode.LeftShift))
         {
-            if (dCooler > 0 && dCounter == 1)
-            {
-                player.Dash();
-                Debug.Log("Dashed");
-            }
-            else
-            {
-                dCooler = .5f;
-                dCounter += 1;
-            }
-        }
-        if (dCooler > 0)
-        {
-            dCooler -= 1 * Time.deltaTime;
-        } else
-        {
-            dCounter = 0;
+            player.HandleDash();
         }
 
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            if (aCooler > 0 && aCounter == 1)
-            {
-                player.DashLeft();
-                Debug.Log("Dashed Left");
-            }
-            else
-            {
-                aCooler = .5f;
-                aCounter += 1;
-            }
-        }
-        if (aCooler > 0)
-        {
-            aCooler -= 1 * Time.deltaTime;
-        }
-        else
-        {
-            aCounter = 0;
-        }
 
         if (Input.GetButtonDown("Jump"))
         {
             player.OnJumpInputDown();
         }
-
         
 
         if (Input.GetButtonUp("Jump"))
@@ -89,7 +94,7 @@ public class PlayerInput : MonoBehaviour
             player.OnJumpInputUp();
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftShift)) {
+        if (Input.GetKeyDown(KeyCode.S)) {
             if (inBlue)
             {
                 cc.TurnOffMesh(player.currentColor);
@@ -125,11 +130,11 @@ public class PlayerInput : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.S))
+        if (Input.GetKeyDown(KeyCode.E))
         {
             HandleColorSwap();
         }
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.Q))
         {
             HandleFairyChange();
         }

@@ -83,6 +83,18 @@ public class Player : MonoBehaviour
         directionalInput = input;
     }
 
+    //Inefficient, Handle color check first
+    public void HandleDash()
+    {
+        if (velocity.x > 0)
+        {
+            Dash();
+        } else if (velocity.x < 0)
+        {
+            DashLeft();
+        }
+    }
+
     public void Dash()
     {
         //rb.transform.position += transform.right * 2;
@@ -95,14 +107,17 @@ public class Player : MonoBehaviour
 
     public void DashLeft()
     {
-        
-         rb.AddForce(-transform.right * 10f, ForceMode2D.Impulse);
-         StartCoroutine(DashTimer());
+        if (currentColor == Color.Yellow)
+        {
+            rb.AddForce(-transform.right * 10f, ForceMode2D.Impulse);
+            StartCoroutine(DashTimer());
+        }
         
     }
 
     public void OnJumpInputDown()
     {
+        anim.SetBool("jumping", true);
         if (wallSliding)
         {
             if (wallDirX == directionalInput.x)
@@ -112,10 +127,7 @@ public class Player : MonoBehaviour
                     velocity.x = -wallDirX * wallJumpClimb.x;
                     velocity.y = wallJumpClimb.y;
                 }
-                else
-                {
-                    
-                }
+                
             }
             else if (directionalInput.x == 0 && currentColor == Color.Green)
             {
@@ -199,22 +211,29 @@ public class Player : MonoBehaviour
         
         float targetVelocityX = directionalInput.x * moveSpeed;
         velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below ? accelerationTimeGrounded : accelerationTimeAirborne));
-        velocity.y += gravity * Time.deltaTime * .82f;
+        velocity.y += gravity * Time.deltaTime * .85f;
 
         if (currentColor == Color.Green && wallSliding || isDashing)
         {
             velocity.y = -0.00001f;
         }
-        if (isGliding && velocity.y < -1f)
+        if (isGliding && velocity.y < -5f)
         {
-            velocity.y = -1f;
+            velocity.y = -5f;
         }
 
         if (Mathf.Abs(velocity.x) < .1f)
         {
             velocity.x = 0f;
         }
+        
+        
 
+        Debug.Log(velocity.y);
+        if (velocity.y <= 0f)
+        {
+            anim.SetBool("jumping", false);
+        }
        
         
         anim.SetFloat("xvelocity", velocity.x);
@@ -247,7 +266,7 @@ public class Player : MonoBehaviour
     {
         isDashing = true;
 
-        yield return new WaitForSeconds(.3f);
+        yield return new WaitForSeconds(.5f);
 
         isDashing = false;
         GetComponent<Rigidbody2D>().velocity = Vector2.zero;
