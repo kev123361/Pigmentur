@@ -9,6 +9,9 @@ public class Stone : MonoBehaviour
     public bool filled;
     public Player.Color color;
     public Sprite filledSprite;
+
+    public delegate void StoneFilled();
+    public static event StoneFilled OnStoneFilled;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,5 +28,9 @@ public class Stone : MonoBehaviour
     {
         filled = true;
         sr.sprite = filledSprite;
+        if (OnStoneFilled != null)
+        {
+            OnStoneFilled();
+        }
     }
 }

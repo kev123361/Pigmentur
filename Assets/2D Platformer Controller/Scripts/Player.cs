@@ -83,7 +83,7 @@ public class Player : MonoBehaviour
         directionalInput = input;
     }
 
-    //Inefficient, Handle color check first
+    //Inefficient, Handle color check firstunity
     public void HandleDash()
     {
         if (velocity.x > 0)
@@ -117,46 +117,8 @@ public class Player : MonoBehaviour
 
     public void OnJumpInputDown()
     {
-        anim.SetBool("jumping", true);
-        if (wallSliding)
-        {
-            if (wallDirX == directionalInput.x)
-            {
-                if (currentColor == Color.Green)
-                {
-                    velocity.x = -wallDirX * wallJumpClimb.x;
-                    velocity.y = wallJumpClimb.y;
-                }
-                
-            }
-            else if (directionalInput.x == 0 && currentColor == Color.Green)
-            {
-                velocity.x = -wallDirX * wallJumpOff.x;
-                velocity.y = wallJumpOff.y;
-                wallSliding = false;
-            }
-            else if (currentColor == Color.Green)
-            {
-                velocity.x = -wallDirX * wallLeap.x;
-                velocity.y = wallLeap.y;
-                wallSliding = false;
-            }
-            isDoubleJumping = false;
-        }
-        if (controller.collisions.below)
-        {
-            velocity.y = maxJumpVelocity;
-            isDoubleJumping = false;
-        }
-        if (canDoubleJump && !controller.collisions.below && !isDoubleJumping && !wallSliding)
-        {
-            velocity.y = maxJumpVelocity;
-            isDoubleJumping = true;
-        }
-        if (currentColor == Color.Red)
-        {
-            isGliding = true;
-        }
+        anim.SetTrigger("jumpTrig");
+        StartCoroutine(DelayJump());
     }
 
     public void OnJumpInputUp()
@@ -229,7 +191,7 @@ public class Player : MonoBehaviour
         
         
 
-        Debug.Log(velocity.y);
+        // This needs to be phased out eventually
         if (velocity.y <= 0f)
         {
             anim.SetBool("jumping", false);
@@ -271,5 +233,50 @@ public class Player : MonoBehaviour
         isDashing = false;
         GetComponent<Rigidbody2D>().velocity = Vector2.zero;
 
+    }
+
+    private IEnumerator DelayJump()
+    {
+        yield return new WaitForSeconds(.07f);
+        if (wallSliding)
+        {
+            if (wallDirX == directionalInput.x)
+            {
+                if (currentColor == Color.Green)
+                {
+                    velocity.x = -wallDirX * wallJumpClimb.x;
+                    velocity.y = wallJumpClimb.y;
+                }
+
+            }
+            else if (directionalInput.x == 0 && currentColor == Color.Green)
+            {
+                velocity.x = -wallDirX * wallJumpOff.x;
+                velocity.y = wallJumpOff.y;
+                wallSliding = false;
+            }
+            else if (currentColor == Color.Green)
+            {
+                velocity.x = -wallDirX * wallLeap.x;
+                velocity.y = wallLeap.y;
+                wallSliding = false;
+            }
+            isDoubleJumping = false;
+        }
+
+        if (controller.collisions.below)
+        {
+            velocity.y = maxJumpVelocity;
+            isDoubleJumping = false;
+        }
+        if (canDoubleJump && !controller.collisions.below && !isDoubleJumping && !wallSliding)
+        {
+            velocity.y = maxJumpVelocity;
+            isDoubleJumping = true;
+        }
+        if (currentColor == Color.Red)
+        {
+            isGliding = true;
+        }
     }
 }
