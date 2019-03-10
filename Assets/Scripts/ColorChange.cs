@@ -10,9 +10,13 @@ public class ColorChange : MonoBehaviour
 
     public GameObject[] colorMeshes;
     // Start is called before the first frame update
+    public AudioClip wind;
+    //public AudioSource audio;
+    
     void Start()
     {
         //playerRenderer = GetComponent<Renderer>();
+        //AudioSource audio = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -55,6 +59,9 @@ public class ColorChange : MonoBehaviour
                 break;
             case Player.Color.Blue:
                 colorMeshes[1].SetActive(true);
+                AudioSource wind = GetComponent<AudioSource>();
+                wind.Play();
+                //AudioClip.PlayOneShot (wind, 0.0F);
                 break;
             case Player.Color.Red:
                 colorMeshes[2].SetActive(true);
