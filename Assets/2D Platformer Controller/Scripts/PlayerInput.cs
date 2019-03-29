@@ -216,8 +216,10 @@ public class PlayerInput : MonoBehaviour
     private void HandleColorSwap()
     {
         Player.Color playerColor = player.currentColor;
+        cc.TurnOffMesh(playerColor);
         cc.ChangeColor(fairy.GetColor());
         player.currentColor = fairy.GetColor();
+        fairycc.TurnOffMesh(fairy.GetColor());
         fairycc.ChangeColor(playerColor);
         fairy.SetColor(playerColor);
     }

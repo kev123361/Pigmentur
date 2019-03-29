@@ -78,6 +78,14 @@ public class Player : MonoBehaviour
         
     }
 
+    private void FixedUpdate()
+    {
+        
+    }
+
+    
+
+
     public void SetDirectionalInput(Vector2 input)
     {
         directionalInput = input;
