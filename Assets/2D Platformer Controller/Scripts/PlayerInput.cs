@@ -18,11 +18,11 @@ public class PlayerInput : MonoBehaviour
     public bool nearStone;
     public GameObject currStone;
 
-    private float dCooler = .5f;
-    private float dCounter;
-
-    private float aCooler = .5f;
-    private float aCounter;
+    // Old system used for double tap dash
+    //private float dCooler = .5f;
+    //private float dCounter;
+    //private float aCooler = .5f;
+    //private float aCounter;
 
     private void OnEnable()
     {
