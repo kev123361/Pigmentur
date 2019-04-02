@@ -245,7 +245,7 @@ public class Player : MonoBehaviour
 
     private IEnumerator DelayJump()
     {
-        yield return new WaitForSeconds(.07f);
+        yield return new WaitForSeconds(.03f);
         if (wallSliding)
         {
             if (wallDirX == directionalInput.x)
@@ -279,6 +279,7 @@ public class Player : MonoBehaviour
         }
         if (canDoubleJump && !controller.collisions.below && !isDoubleJumping && !wallSliding)
         {
+            rb.velocity = new Vector2(rb.velocity.x, 0f);
             velocity.y = maxJumpVelocity;
             isDoubleJumping = true;
         }

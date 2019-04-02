@@ -26,10 +26,12 @@ public class Stone : MonoBehaviour
 
     public void Fill()
     {
-        filled = true;
-        sr.sprite = filledSprite;
-        if (OnStoneFilled != null)
+        
+        
+        if (!filled && OnStoneFilled != null)
         {
+            sr.sprite = filledSprite;
+            filled = true;
             OnStoneFilled();
         }
     }
