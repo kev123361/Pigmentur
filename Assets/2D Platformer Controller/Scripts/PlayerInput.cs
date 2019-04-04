@@ -222,6 +222,10 @@ public class PlayerInput : MonoBehaviour
         fairycc.TurnOffMesh(fairy.GetColor());
         fairycc.ChangeColor(playerColor);
         fairy.SetColor(playerColor);
+        if (player.currentColor == Player.Color.Blue)
+        {
+            player.TurnDoubleJumpOn();
+        } else { player.TurnDoubleJumpOff(); }
     }
 
     private void HandleFairyChange()
