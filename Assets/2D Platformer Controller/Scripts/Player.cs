@@ -18,6 +18,8 @@ public class Player : MonoBehaviour
 
     public bool canDoubleJump;
     private bool isDoubleJumping = false;
+    public bool grounded;
+    public bool jumping;
 
     private bool isGliding = false;
 
@@ -70,12 +72,19 @@ public class Player : MonoBehaviour
         if (controller.collisions.above || controller.collisions.below)
         {
             velocity.y = 0f;
+            
         }
+        if (controller.collisions.below) { anim.SetBool("grounded", true); }
+        else { anim.SetBool("grounded", false); }
+        
         if (isGliding && velocity.y <= 0f)
         {
             gravity = -(2 * maxJumpHeight) / Mathf.Pow(timeToJumpApex, 2) / 10f;
         }
-        
+
+        anim.SetFloat("yvelocity", velocity.y);
+
+
     }
 
     private void FixedUpdate()
@@ -127,6 +136,7 @@ public class Player : MonoBehaviour
     {
         anim.SetTrigger("jumpTrig");
         StartCoroutine(DelayJump());
+        
     }
 
     public void OnJumpInputUp()
@@ -200,10 +210,10 @@ public class Player : MonoBehaviour
         
 
         // This needs to be phased out eventually
-        if (velocity.y <= 0f)
-        {
-            anim.SetBool("jumping", false);
-        }
+        //if (velocity.y <= 0f)
+        //{
+        //    anim.SetBool("jumping", false);
+        //}
        
         
         anim.SetFloat("xvelocity", velocity.x);
@@ -246,6 +256,8 @@ public class Player : MonoBehaviour
     private IEnumerator DelayJump()
     {
         yield return new WaitForSeconds(.03f);
+        
+        jumping = true;
         if (wallSliding)
         {
             if (wallDirX == directionalInput.x)
@@ -281,6 +293,7 @@ public class Player : MonoBehaviour
         {
             rb.velocity = new Vector2(rb.velocity.x, 0f);
             velocity.y = maxJumpVelocity;
+            anim.SetTrigger("doublejumpTrig");
             isDoubleJumping = true;
         }
         if (currentColor == Color.Red)
