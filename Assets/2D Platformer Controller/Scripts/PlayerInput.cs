@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 [RequireComponent(typeof(Player))]
 public class PlayerInput : MonoBehaviour
@@ -17,6 +18,8 @@ public class PlayerInput : MonoBehaviour
     public bool inGreen;
     public bool nearStone;
     public GameObject currStone;
+
+    public Vector3 checkpoint;
 
     // Old system used for double tap dash
     //private float dCooler = .5f;
@@ -38,7 +41,16 @@ public class PlayerInput : MonoBehaviour
     {
         player = GetComponent<Player>();
         cc = GetComponent<ColorChange>();
-        fairycc = fairy.GetComponent<ColorChange>();
+        checkpoint = transform.position;
+        try
+        {
+            fairycc = fairy.GetComponent<ColorChange>();
+        } catch (Exception e)
+        {
+        
+            Debug.Log("No Fairy in scene");
+        }
+        
         
     }
 
@@ -150,6 +162,7 @@ public class PlayerInput : MonoBehaviour
                     if (currStone.GetComponent<Stone>().color == player.currentColor)
                     {
                         currStone.GetComponent<Stone>().Fill();
+                        checkpoint = currStone.transform.position;
                     }
                 }
             }
@@ -187,6 +200,9 @@ public class PlayerInput : MonoBehaviour
         {
             nearStone = true;
             currStone = other.gameObject;
+        } else if (other.CompareTag("CatchBox"))
+        {
+            transform.position = checkpoint;
         }
     }
 

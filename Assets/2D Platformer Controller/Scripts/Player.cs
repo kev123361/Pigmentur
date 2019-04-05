@@ -74,10 +74,10 @@ public class Player : MonoBehaviour
         {
             if (dashLeft)
             {
-                transform.position = Vector3.Lerp(transform.position, transform.position + new Vector3(-1.5f, 0f, 0f), Time.deltaTime);
+                transform.position = Vector3.Lerp(transform.position, transform.position + new Vector3(-2f, 0f, 0f), Time.deltaTime);
             } else
             {
-                transform.position = Vector3.Lerp(transform.position, transform.position + new Vector3(1.5f, 0f, 0f), Time.deltaTime);
+                transform.position = Vector3.Lerp(transform.position, transform.position + new Vector3(2f, 0f, 0f), Time.deltaTime);
 
             }
         }
@@ -155,7 +155,10 @@ public class Player : MonoBehaviour
     {
         if (grounded || (canDoubleJump && !isDoubleJumping) || (currentColor == Color.Green && wallSliding))
         {
-            anim.SetTrigger("jumpTrig");
+            if (grounded)
+            {
+                anim.SetTrigger("jumpTrig");
+            }
             StartCoroutine(DelayJump());
         }
         
@@ -163,11 +166,11 @@ public class Player : MonoBehaviour
 
     public void OnJumpInputUp()
     {
-        if (currentColor == Color.Red)
-        {
-            gravity = -(2 * maxJumpHeight) / Mathf.Pow(timeToJumpApex, 2);
-            isGliding = false;
-        }
+        
+        gravity = -(2 * maxJumpHeight) / Mathf.Pow(timeToJumpApex, 2);
+        isGliding = false;
+        anim.SetBool("isGliding", false);
+        
         if (velocity.y > minJumpVelocity)
         {
             velocity.y = minJumpVelocity;
@@ -323,6 +326,7 @@ public class Player : MonoBehaviour
         if (currentColor == Color.Red)
         {
             isGliding = true;
+            anim.SetBool("isGliding", true);
         }
     }
 }
