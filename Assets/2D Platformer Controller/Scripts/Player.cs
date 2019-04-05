@@ -74,10 +74,10 @@ public class Player : MonoBehaviour
         {
             if (dashLeft)
             {
-                transform.position = Vector3.Lerp(transform.position, transform.position + new Vector3(-2f, 0f, 0f), Time.deltaTime);
+                transform.position = Vector3.Lerp(transform.position, transform.position + new Vector3(-8f, 0f, 0f), Time.deltaTime);
             } else
             {
-                transform.position = Vector3.Lerp(transform.position, transform.position + new Vector3(2f, 0f, 0f), Time.deltaTime);
+                transform.position = Vector3.Lerp(transform.position, transform.position + new Vector3(8f, 0f, 0f), Time.deltaTime);
 
             }
         }
@@ -153,7 +153,8 @@ public class Player : MonoBehaviour
 
     public void OnJumpInputDown()
     {
-        if (grounded || (canDoubleJump && !isDoubleJumping) || (currentColor == Color.Green && wallSliding))
+        if (grounded || (canDoubleJump && !isDoubleJumping) || 
+            (currentColor == Color.Green && wallSliding) || (currentColor == Color.Red))
         {
             if (grounded)
             {
