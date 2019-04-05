@@ -24,6 +24,8 @@ public class Player : MonoBehaviour
     private bool isGliding = false;
 
     private bool isDashing = false;
+    private bool dashLeft = false;
+    private bool dashRight = false;
 
     public enum Color { White, Red, Blue, Yellow, Green};
     public Color currentColor = Color.White;
@@ -68,14 +70,31 @@ public class Player : MonoBehaviour
         
         controller.Move(velocity * Time.deltaTime, directionalInput);
         
+        if (isDashing)
+        {
+            if (dashLeft)
+            {
+                transform.position = Vector3.Lerp(transform.position, transform.position + new Vector3(-1.5f, 0f, 0f), Time.deltaTime);
+            } else
+            {
+                transform.position = Vector3.Lerp(transform.position, transform.position + new Vector3(1.5f, 0f, 0f), Time.deltaTime);
+
+            }
+        }
 
         if (controller.collisions.above || controller.collisions.below)
         {
             velocity.y = 0f;
             
         }
-        if (controller.collisions.below) { anim.SetBool("grounded", true); }
-        else { anim.SetBool("grounded", false); }
+        if (controller.collisions.below) {
+            anim.SetBool("grounded", true);
+            grounded = true;
+        }
+        else {
+            anim.SetBool("grounded", false);
+            grounded = false;
+        }
         
         if (isGliding && velocity.y <= 0f)
         {
@@ -117,7 +136,7 @@ public class Player : MonoBehaviour
         //rb.transform.position += transform.right * 2;
         if (currentColor == Color.Yellow)
         {
-            rb.AddForce(transform.right * 10f, ForceMode2D.Impulse);
+            dashRight = true;
             StartCoroutine(DashTimer());
         }
     }
@@ -126,7 +145,7 @@ public class Player : MonoBehaviour
     {
         if (currentColor == Color.Yellow)
         {
-            rb.AddForce(-transform.right * 10f, ForceMode2D.Impulse);
+            dashLeft = true;
             StartCoroutine(DashTimer());
         }
         
@@ -134,8 +153,11 @@ public class Player : MonoBehaviour
 
     public void OnJumpInputDown()
     {
-        anim.SetTrigger("jumpTrig");
-        StartCoroutine(DelayJump());
+        if (grounded || (canDoubleJump && !isDoubleJumping) || (currentColor == Color.Green && wallSliding))
+        {
+            anim.SetTrigger("jumpTrig");
+            StartCoroutine(DelayJump());
+        }
         
     }
 
@@ -249,6 +271,8 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(.5f);
 
         isDashing = false;
+        dashRight = false;
+        dashLeft = false;
         GetComponent<Rigidbody2D>().velocity = Vector2.zero;
 
     }
