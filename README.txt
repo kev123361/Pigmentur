@@ -1,5 +1,7 @@
 Vertical Slice 3/10
 
+The Scene to run is called IntroLevel. For some reason I couldn't get the build to work.
+
 Controls:
 -A and D for left and right
 -Space for jump
