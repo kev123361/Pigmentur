@@ -24,6 +24,7 @@ public class Player : MonoBehaviour
     private bool isGliding = false;
 
     private bool isDashing = false;
+    private bool dashed = false;
     private bool dashLeft = false;
     private bool dashRight = false;
 
@@ -90,6 +91,7 @@ public class Player : MonoBehaviour
         if (controller.collisions.below) {
             anim.SetBool("grounded", true);
             grounded = true;
+            dashed = false;
         }
         else {
             anim.SetBool("grounded", false);
@@ -134,18 +136,20 @@ public class Player : MonoBehaviour
     public void Dash()
     {
         //rb.transform.position += transform.right * 2;
-        if (currentColor == Color.Yellow)
+        if (currentColor == Color.Yellow && !dashed)
         {
             dashRight = true;
+            dashed = true;
             StartCoroutine(DashTimer());
         }
     }
 
     public void DashLeft()
     {
-        if (currentColor == Color.Yellow)
+        if (currentColor == Color.Yellow && !dashed)
         {
             dashLeft = true;
+            dashed = true;
             StartCoroutine(DashTimer());
         }
         
