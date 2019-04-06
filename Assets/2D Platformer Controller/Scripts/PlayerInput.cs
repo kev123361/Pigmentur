@@ -111,7 +111,7 @@ public class PlayerInput : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.LeftShift))
             {
-                player.HandleDash();
+                //player.HandleDash();
             }
 
 
