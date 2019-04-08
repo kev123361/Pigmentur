@@ -7,7 +7,7 @@ public class LevelManager : MonoBehaviour
 {
     public int stonesLeft;
     
-    public Object[] scenes;
+    public string[] scenes;
 
     public delegate void LevelComplete();
     public static event LevelComplete OnLevelComplete;
@@ -53,12 +53,12 @@ public class LevelManager : MonoBehaviour
         int newSceneIndex = -1;
         for (int i = 0; i < scenes.Length - 1; i++)
         {
-            if (scenes[i].name == currScene.name)
+            if (scenes[i] == currScene.name)
             {
                 newSceneIndex = i + 1;
             }
         }
 
-        SceneManager.LoadScene(scenes[newSceneIndex].name);
+        SceneManager.LoadScene(scenes[newSceneIndex]);
      }
 }

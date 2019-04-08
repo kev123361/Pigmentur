@@ -169,7 +169,10 @@ public class PlayerInput : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.E))
             {
-                HandleColorSwap();
+                if (fairy)
+                {
+                    HandleColorSwap();
+                }
             }
             if (Input.GetKeyDown(KeyCode.Q))
             {
