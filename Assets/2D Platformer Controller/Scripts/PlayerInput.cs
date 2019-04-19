@@ -18,8 +18,14 @@ public class PlayerInput : MonoBehaviour
     public bool inGreen;
     public bool nearStone;
     public GameObject currStone;
+    [SerializeField] private GameObject currCrack;
 
     public Vector3 checkpoint;
+
+    public GameObject blueFuzz;
+    public GameObject yellowFuzz;
+    public GameObject redFuzz;
+    public GameObject greenFuzz;
 
     // Old system used for double tap dash
     //private float dCooler = .5f;
@@ -130,6 +136,8 @@ public class PlayerInput : MonoBehaviour
             {
                 if (inBlue)
                 {
+                    GameObject fuzz = Instantiate(blueFuzz, currCrack.transform.position, Quaternion.identity);
+                    fuzz.GetComponent<ParticlesToPlayer>().player = gameObject;
                     cc.TurnOffMesh(player.currentColor);
                     cc.ChangeColor(Player.Color.Blue);
                     player.TurnDoubleJumpOn();
@@ -137,6 +145,8 @@ public class PlayerInput : MonoBehaviour
                 }
                 else if (inRed)
                 {
+                    GameObject fuzz = Instantiate(redFuzz, currCrack.transform.position, Quaternion.identity);
+                    fuzz.GetComponent<ParticlesToPlayer>().player = gameObject;
                     cc.TurnOffMesh(player.currentColor);
                     cc.ChangeColor(Player.Color.Red);
                     player.TurnDoubleJumpOff();
@@ -144,6 +154,8 @@ public class PlayerInput : MonoBehaviour
                 }
                 else if (inYellow)
                 {
+                    GameObject fuzz = Instantiate(yellowFuzz, currCrack.transform.position, Quaternion.identity);
+                    fuzz.GetComponent<ParticlesToPlayer>().player = gameObject;
                     cc.TurnOffMesh(player.currentColor);
                     cc.ChangeColor(Player.Color.Yellow);
                     player.TurnDoubleJumpOff();
@@ -151,6 +163,8 @@ public class PlayerInput : MonoBehaviour
                 }
                 else if (inGreen)
                 {
+                    GameObject fuzz = Instantiate(greenFuzz, currCrack.transform.position, Quaternion.identity);
+                    fuzz.GetComponent<ParticlesToPlayer>().player = gameObject;
                     cc.TurnOffMesh(player.currentColor);
                     cc.ChangeColor(Player.Color.Green);
                     player.TurnDoubleJumpOff();
@@ -187,18 +201,22 @@ public class PlayerInput : MonoBehaviour
         if (other.CompareTag("Blue Pickup"))
         {
             inBlue = true;
+            currCrack = other.gameObject;
         }
         else if (other.CompareTag("Red Pickup"))
         {
             inRed = true;
+            currCrack = other.gameObject;
         }
         else if (other.CompareTag("Yellow Pickup"))
         {
             inYellow = true;
+            currCrack = other.gameObject;
         }
         else if (other.CompareTag("Green Pickup"))
         {
             inGreen = true;
+            currCrack = other.gameObject;
         } else if (other.CompareTag("Stone"))
         {
             nearStone = true;
@@ -214,17 +232,21 @@ public class PlayerInput : MonoBehaviour
         if (collision.CompareTag("Blue Pickup"))
         {
             inBlue = false;
+            currCrack = null;
         } else if (collision.CompareTag("Red Pickup"))
         {
             inRed = false;
+            currCrack = null;
         }
         else if (collision.CompareTag("Yellow Pickup"))
         {
             inYellow = false;
+            currCrack = null;
         }
         else if (collision.CompareTag("Green Pickup"))
         {
             inGreen = false;
+            currCrack = null;
         }
         else if (collision.CompareTag("Stone"))
         {
