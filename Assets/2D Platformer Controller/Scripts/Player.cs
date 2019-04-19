@@ -63,6 +63,17 @@ public class Player : MonoBehaviour
         
     }
 
+    private void OnEnable()
+    {
+        LevelManager.OnLevelComplete += StopMovement;
+
+    }
+
+    private void OnDisable()
+    {
+        LevelManager.OnLevelComplete -= StopMovement;
+    }
+
     private void Update()
     {
         CalculateVelocity();
@@ -109,12 +120,10 @@ public class Player : MonoBehaviour
 
     }
 
-    private void FixedUpdate()
+    private void StopMovement()
     {
-        
+        directionalInput = Vector2.zero;
     }
-
-    
 
 
     public void SetDirectionalInput(Vector2 input)

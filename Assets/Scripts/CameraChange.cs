@@ -11,6 +11,9 @@ public class CameraChange : MonoBehaviour
     
     public float timeToCompleteZoom;
 
+    public bool zooming;
+    public float zoomTargetSize;
+
     private void OnEnable()
     {
         LevelManager.OnLevelComplete += ZoomOutToEnd;
@@ -30,7 +33,15 @@ public class CameraChange : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (zooming)
+        {
+            cam.orthographicSize = Mathf.LerpUnclamped(cam.orthographicSize, zoomTargetSize, Time.deltaTime);
+            if (Mathf.Abs(zoomTargetSize - cam.orthographicSize) < 0.1f)
+            {
+                cam.orthographicSize = zoomTargetSize;
+                zooming = false;
+            }
+        }
     }
 
     public void ZoomOutToEnd()
@@ -48,5 +59,11 @@ public class CameraChange : MonoBehaviour
             cam.orthographicSize = Mathf.LerpUnclamped(cam.orthographicSize, endSize, Time.deltaTime);
             yield return null;
         }
+    }
+
+    public void ZoomCameraTo(float size)
+    {
+        zoomTargetSize = size;
+        zooming = true;
     }
 }
