@@ -72,48 +72,7 @@ public class PlayerInput : MonoBehaviour
             Vector2 directionalInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
             player.SetDirectionalInput(directionalInput);
 
-            //if (Input.GetKeyDown(KeyCode.D))
-            //{
-            //    if (dCooler > 0 && dCounter == 1)
-            //    {
-            //        player.Dash();
-            //        Debug.Log("Dashed");
-            //    }
-            //    else
-            //    {
-            //        dCooler = .5f;
-            //        dCounter += 1;
-            //    }
-            //}
-            //if (dCooler > 0)
-            //{
-            //    dCooler -= 1 * Time.deltaTime;
-            //} else
-            //{
-            //    dCounter = 0;
-            //}
-
-            //if (Input.GetKeyDown(KeyCode.A))
-            //{
-            //    if (aCooler > 0 && aCounter == 1)
-            //    {
-            //        player.DashLeft();
-            //        Debug.Log("Dashed Left");
-            //    }
-            //    else
-            //    {
-            //        aCooler = .5f;
-            //        aCounter += 1;
-            //    }
-            //}
-            //if (aCooler > 0)
-            //{
-            //    aCooler -= 1 * Time.deltaTime;
-            //}
-            //else
-            //{
-            //    aCounter = 0;
-            //}
+            
 
             if (Input.GetKeyDown(KeyCode.LeftShift))
             {
@@ -138,10 +97,12 @@ public class PlayerInput : MonoBehaviour
                 {
                     GameObject fuzz = Instantiate(blueFuzz, currCrack.transform.position, Quaternion.identity);
                     fuzz.GetComponent<ParticlesToPlayer>().player = gameObject;
+
                     cc.TurnOffMesh(player.currentColor);
                     cc.ChangeColor(Player.Color.Blue);
                     player.TurnDoubleJumpOn();
                     player.currentColor = Player.Color.Blue;
+
                 }
                 else if (inRed)
                 {
@@ -175,6 +136,24 @@ public class PlayerInput : MonoBehaviour
                 {
                     if (currStone.GetComponent<Stone>().color == player.currentColor)
                     {
+                        GameObject newParticles;
+                        if (player.currentColor == Player.Color.Red)
+                        {
+                            newParticles = Instantiate(redFuzz, transform.position, Quaternion.identity);
+                        } else if (player.currentColor == Player.Color.Blue)
+                        {
+                            newParticles = Instantiate(blueFuzz, transform.position, Quaternion.identity);
+                        }
+                        else if (player.currentColor == Player.Color.Yellow)
+                        {
+                            newParticles = Instantiate(yellowFuzz, transform.position, Quaternion.identity);
+                        }
+                        else 
+                        {
+                            newParticles = Instantiate(greenFuzz, transform.position, Quaternion.identity);
+                        }
+                        currStone.GetComponent<TurnColorOn>().ColorWorld();
+                        newParticles.GetComponent<ParticlesToPlayer>().player = currStone;
                         currStone.GetComponent<Stone>().Fill();
                         checkpoint = currStone.transform.position;
                     }
