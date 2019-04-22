@@ -27,6 +27,8 @@ public class PlayerInput : MonoBehaviour
     public GameObject redFuzz;
     public GameObject greenFuzz;
 
+    
+
     // Old system used for double tap dash
     //private float dCooler = .5f;
     //private float dCounter;
