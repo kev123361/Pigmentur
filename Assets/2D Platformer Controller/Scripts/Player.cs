@@ -53,6 +53,7 @@ public class Player : MonoBehaviour
 
 
     public ParticleSystem dashParticles;
+    public ParticleSystem DJumpParticles;
 
     private void Start()
     {
@@ -67,6 +68,7 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
+        DJumpParticles.Stop();
         dashParticles.Stop();
     }
 
@@ -359,6 +361,7 @@ public class Player : MonoBehaviour
             rb.velocity = new Vector2(rb.velocity.x, 0f);
             velocity.y = maxJumpVelocity;
             anim.SetTrigger("doublejumpTrig");
+            DJumpParticles.Play();
             isDoubleJumping = true;
         }
         if (currentColor == Color.Red)
