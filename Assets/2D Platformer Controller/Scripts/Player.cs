@@ -50,7 +50,10 @@ public class Player : MonoBehaviour
     private Rigidbody2D rb;
 
     private Animator anim;
-    
+
+
+    public ParticleSystem dashParticles;
+    public ParticleSystem DJumpParticles;
 
     private void Start()
     {
@@ -61,6 +64,12 @@ public class Player : MonoBehaviour
         minJumpVelocity = Mathf.Sqrt(2 * Mathf.Abs(gravity) * minJumpHeight);
         anim = GetComponent<Animator>();
         
+    }
+
+    private void Awake()
+    {
+        DJumpParticles.Stop();
+        dashParticles.Stop();
     }
 
     private void OnEnable()
@@ -294,6 +303,7 @@ public class Player : MonoBehaviour
 
     private IEnumerator DashTimer()
     {
+        dashParticles.Play();
         isDashing = true;
         anim.SetBool("isDashing", isDashing);
 
@@ -304,6 +314,7 @@ public class Player : MonoBehaviour
         dashRight = false;
         dashLeft = false;
         GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+        dashParticles.Stop();
 
     }
 
@@ -350,6 +361,7 @@ public class Player : MonoBehaviour
             rb.velocity = new Vector2(rb.velocity.x, 0f);
             velocity.y = maxJumpVelocity;
             anim.SetTrigger("doublejumpTrig");
+            DJumpParticles.Play();
             isDoubleJumping = true;
         }
         if (currentColor == Color.Red)
