@@ -70,10 +70,4 @@ public class LevelManager : MonoBehaviour
 
         SceneManager.LoadScene(scenes[newSceneIndex]);
     }
-
-    public void RestartLevel()
-    {
-        Time.timeScale = 1.0f;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
 }

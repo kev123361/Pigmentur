@@ -7,12 +7,10 @@ using Anima2D;
 
 public class ButterflyAnimation : MonoBehaviour
 {
-
     public SpriteMeshAnimation[] colors;
     public int delay;
     private int counter;
     private bool looper;
-
 
     private void Start()
     {
