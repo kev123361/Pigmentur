@@ -50,7 +50,8 @@ public class LevelManager : MonoBehaviour
 
     public void LoadNextLevel()
     {
-        //StartCoroutine(DelayNextLevel());
+        Debug.Log("Loading next");
+        StartCoroutine(DelayNextLevel());
     }
 
     private IEnumerator DelayNextLevel()
