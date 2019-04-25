@@ -27,7 +27,7 @@ public class PlayerInput : MonoBehaviour
     public GameObject redFuzz;
     public GameObject greenFuzz;
 
-    
+    [SerializeField] private PlayerSFX playerSFX;
 
     // Old system used for double tap dash
     //private float dCooler = .5f;
@@ -47,6 +47,7 @@ public class PlayerInput : MonoBehaviour
 
     private void Start()
     {
+        playerSFX = GetComponent<PlayerSFX>();
         player = GetComponent<Player>();
         cc = GetComponent<ColorChange>();
         checkpoint = transform.position;
@@ -104,7 +105,7 @@ public class PlayerInput : MonoBehaviour
                     cc.ChangeColor(Player.Color.Blue);
                     player.TurnDoubleJumpOn();
                     player.currentColor = Player.Color.Blue;
-
+                    playerSFX.PlayAbsorb();
                 }
                 else if (inRed)
                 {
@@ -114,6 +115,7 @@ public class PlayerInput : MonoBehaviour
                     cc.ChangeColor(Player.Color.Red);
                     player.TurnDoubleJumpOff();
                     player.currentColor = Player.Color.Red;
+                    playerSFX.PlayAbsorb();
                 }
                 else if (inYellow)
                 {
@@ -123,6 +125,7 @@ public class PlayerInput : MonoBehaviour
                     cc.ChangeColor(Player.Color.Yellow);
                     player.TurnDoubleJumpOff();
                     player.currentColor = Player.Color.Yellow;
+                    playerSFX.PlayAbsorb();
                 }
                 else if (inGreen)
                 {
@@ -132,10 +135,12 @@ public class PlayerInput : MonoBehaviour
                     cc.ChangeColor(Player.Color.Green);
                     player.TurnDoubleJumpOff();
                     player.currentColor = Player.Color.Green;
+                    playerSFX.PlayAbsorb();
                 }
                 //Handle Stone filling
                 else if (nearStone)
                 {
+                    playerSFX.PlayInsert();
                     if (currStone.GetComponent<Stone>().color == player.currentColor)
                     {
                         GameObject newParticles;
@@ -154,9 +159,11 @@ public class PlayerInput : MonoBehaviour
                         {
                             newParticles = Instantiate(greenFuzz, transform.position, Quaternion.identity);
                         }
-                        currStone.GetComponent<TurnColorOn>().ColorWorld();
-                        newParticles.GetComponent<ParticlesToPlayer>().player = currStone;
                         currStone.GetComponent<Stone>().Fill();
+                        newParticles.GetComponent<ParticlesToPlayer>().player = currStone;
+                        currStone.GetComponent<TurnColorOn>().ColorWorld();
+                        
+                        
                         checkpoint = currStone.transform.position;
                     }
                 }
