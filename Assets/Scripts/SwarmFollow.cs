@@ -7,12 +7,12 @@ public class SwarmFollow : MonoBehaviour
     public GameObject player;
     public bool left;
 
-    private Rigidbody2D playerRB;
+    private BoxCollider2D playerRB;
     private Vector3 offsets;
     // Start is called before the first frame update
     void Start()
     {
-        playerRB = player.GetComponent<Rigidbody2D>();
+        playerRB = player.GetComponent<BoxCollider2D>();
         offsets = new Vector3(Random.Range(-1.5f, -0.5f), Random.Range(-.5f, 1f), 0f);
         if (left)
         {
