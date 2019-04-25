@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class LevelManager : MonoBehaviour
 {
     public int stonesLeft;
+    public RectTransform endCard;
     
     public string[] scenes;
 
@@ -14,14 +15,14 @@ public class LevelManager : MonoBehaviour
     private void OnEnable()
     {
         Stone.OnStoneFilled += DecreaseStoneCount;
-        OnLevelComplete += LoadNextLevel;
+        //OnLevelComplete += LoadNextLevel;
 
     }
 
     private void OnDisable()
     {
         Stone.OnStoneFilled -= DecreaseStoneCount;
-        OnLevelComplete -= LoadNextLevel;
+        //OnLevelComplete -= LoadNextLevel;
     }
     // Start is called before the first frame update
     void Start()
@@ -49,7 +50,7 @@ public class LevelManager : MonoBehaviour
 
     public void LoadNextLevel()
     {
-        StartCoroutine(DelayNextLevel());
+        //StartCoroutine(DelayNextLevel());
     }
 
     private IEnumerator DelayNextLevel()
