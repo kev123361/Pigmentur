@@ -141,35 +141,34 @@ public class PlayerInput : MonoBehaviour
                 else if (nearStone)
                 {
                     playerSFX.PlayInsert();
-                    if (currStone.GetComponent<Stone>().color == player.currentColor)
+
+                    GameObject newParticles;
+                    if (player.currentColor == Player.Color.Red)
                     {
-                        GameObject newParticles;
-                        if (player.currentColor == Player.Color.Red)
-                        {
-                            newParticles = Instantiate(redFuzz, transform.position, Quaternion.identity);
-                        } else if (player.currentColor == Player.Color.Blue)
-                        {
-                            newParticles = Instantiate(blueFuzz, transform.position, Quaternion.identity);
-                        }
-                        else if (player.currentColor == Player.Color.Yellow)
-                        {
-                            newParticles = Instantiate(yellowFuzz, transform.position, Quaternion.identity);
-                        }
-                        else 
-                        {
-                            newParticles = Instantiate(greenFuzz, transform.position, Quaternion.identity);
-                        }
-                        currStone.GetComponent<Stone>().Fill();
-                        newParticles.GetComponent<ParticlesToPlayer>().player = currStone;
-                        currStone.GetComponent<TurnColorOn>().ColorWorld();
-                        
-                        
-                        checkpoint = currStone.transform.position;
+                        newParticles = Instantiate(redFuzz, transform.position, Quaternion.identity);
+                    } else if (player.currentColor == Player.Color.Blue)
+                    {
+                        newParticles = Instantiate(blueFuzz, transform.position, Quaternion.identity);
                     }
+                    else if (player.currentColor == Player.Color.Yellow)
+                    {
+                        newParticles = Instantiate(yellowFuzz, transform.position, Quaternion.identity);
+                    }
+                    else 
+                    {
+                        newParticles = Instantiate(greenFuzz, transform.position, Quaternion.identity);
+                    }
+                    currStone.GetComponent<Stone>().Fill(player.currentColor);
+                    newParticles.GetComponent<ParticlesToPlayer>().player = currStone;
+                    currStone.GetComponent<TurnColorOn>().ColorWorld();
+                        
+                        
+                    checkpoint = currStone.transform.position;
+                    
                 }
             }
 
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKeyDown(KeyCode.D))
             {
                 if (fairy)
                 {

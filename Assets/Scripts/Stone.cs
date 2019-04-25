@@ -8,7 +8,10 @@ public class Stone : MonoBehaviour
 
     public bool filled;
     public Player.Color color;
-    public Sprite filledSprite;
+    public Sprite redFilled;
+    public Sprite blueFilled;
+    public Sprite greenFilled;
+    public Sprite yellowFilled;
 
     public delegate void StoneFilled();
     public static event StoneFilled OnStoneFilled;
@@ -24,13 +27,24 @@ public class Stone : MonoBehaviour
         
     }
 
-    public void Fill()
-    {
-        
+    public void Fill(Player.Color color)
+    { 
         
         if (!filled && OnStoneFilled != null)
         {
-            sr.sprite = filledSprite;
+            if (color == Player.Color.Red)
+            {
+                sr.sprite = redFilled;
+            } else if (color == Player.Color.Blue)
+            {
+                sr.sprite = blueFilled;
+            } else if (color == Player.Color.Green)
+            {
+                sr.sprite = greenFilled;
+            } else
+            {
+                sr.sprite = yellowFilled;
+            }
             filled = true;
             OnStoneFilled();
         }
