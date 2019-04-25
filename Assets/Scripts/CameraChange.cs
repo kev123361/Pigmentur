@@ -66,4 +66,9 @@ public class CameraChange : MonoBehaviour
         zoomTargetSize = size;
         zooming = true;
     }
+
+    public void ZoomCameraToNewPos(Vector2 newPos)
+    {
+
+    }
 }
