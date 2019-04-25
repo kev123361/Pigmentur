@@ -9,6 +9,7 @@ public class PlayerSFX : MonoBehaviour
     public AudioClip dashSFX;
     public AudioClip absorbSFX;
     public AudioClip insertSFX;
+    public AudioClip victorySFX;
 
     [SerializeField] private AudioSource audio;
     // Start is called before the first frame update
@@ -16,6 +17,17 @@ public class PlayerSFX : MonoBehaviour
     {
        
         audio.volume = .4f;
+    }
+
+    private void OnEnable()
+    {
+        LevelManager.OnLevelComplete += PlayVictory;
+
+    }
+
+    private void OnDisable()
+    {
+        LevelManager.OnLevelComplete -= PlayVictory;
     }
 
     // Update is called once per frame
@@ -52,5 +64,10 @@ public class PlayerSFX : MonoBehaviour
     {
         audio.pitch = Random.Range(.8f, 1.2f);
         audio.PlayOneShot(insertSFX);
+    }
+
+    public void PlayVictory()
+    {
+
     }
 }
