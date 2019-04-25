@@ -10,6 +10,9 @@ public class DirectedCameraBox : MonoBehaviour
     public float viewportSize;
     public float lookAheadX;
 
+    public bool newPosition;
+    public Vector2 position;
+
     //Default values to return to
     public float defaultViewportSize = 7f;
     public float defaultLookAheadX = 1.7f;

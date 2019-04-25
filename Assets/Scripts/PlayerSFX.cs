@@ -15,7 +15,7 @@ public class PlayerSFX : MonoBehaviour
     void Start()
     {
        
-        audio.volume = .367f;
+        audio.volume = .4f;
     }
 
     // Update is called once per frame
@@ -27,7 +27,7 @@ public class PlayerSFX : MonoBehaviour
     public void PlayFootfall()
     {
         audio.pitch = Random.Range(.8f, 1.2f);
-        audio.PlayOneShot(footfallSFX[Random.Range(0, footfallSFX.Length)], Random.Range( .3f, .35f));
+        audio.PlayOneShot(footfallSFX[Random.Range(0, footfallSFX.Length)], Random.Range( .4f, .45f));
     }
 
     public void PlayJump()
@@ -39,7 +39,7 @@ public class PlayerSFX : MonoBehaviour
     public void PlayDash()
     {
         audio.pitch = Random.Range(.8f, 1.2f);
-        audio.PlayOneShot(dashSFX, .3f);
+        audio.PlayOneShot(dashSFX, .35f);
     }
 
     public void PlayAbsorb()
