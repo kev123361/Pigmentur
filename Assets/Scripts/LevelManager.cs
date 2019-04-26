@@ -57,7 +57,7 @@ public class LevelManager : MonoBehaviour
     private IEnumerator DelayNextLevel()
     {
         yield return new WaitForSeconds(3f);
-
+        
         Scene currScene = SceneManager.GetActiveScene();
         int newSceneIndex = -1;
         for (int i = 0; i < scenes.Length - 1; i++)
@@ -69,5 +69,11 @@ public class LevelManager : MonoBehaviour
         }
 
         SceneManager.LoadScene(scenes[newSceneIndex]);
+    }
+
+    public void RestartLevel()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
